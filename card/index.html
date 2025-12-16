@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Sangyeon Byeon | Digital Business Card" />
+  <title>Sangyeon Byeon | Card</title>
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --text: #e8eefc;
+      --muted: #b7c4e3;
+      --line: rgba(255, 255, 255, .10);
+      --accent: #7aa2ff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, .45);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", "Noto Sans KR", Arial, "맑은 고딕", sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(122, 162, 255, .25), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(88, 242, 190, .18), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wrap { width: min(560px, 100%); }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .top { display: flex; gap: 14px; align-items: center; }
+
+    .avatar {
+      width: 64px; height: 64px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #000;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    h1 { margin: 0; font-size: 20px; }
+
+    .role { margin-top: 4px; color: var(--muted); font-size: 13px; }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .lang-pill {
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, .12);
+      border-radius: 999px;
+      padding: 4px;
+      display: flex;
+      gap: 4px;
+      flex: 0 0 auto;
+    }
+
+    .lang-pill button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .lang-pill button.active {
+      background: rgba(122, 162, 255, .18);
+      color: var(--text);
+    }
+
+    .lang-pill button:focus-visible {
+      outline: 2px solid rgba(122, 162, 255, .65);
+      outline-offset: 2px;
+    }
+
+    .chips { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .chip {
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(0, 0, 0, .12);
+    }
+
+    .links { margin-top: 16px; display: grid; gap: 10px; }
+
+    a.btn {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, .12);
+      transition: .15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (hover:hover) {
+      a.btn:hover {
+        border-color: rgba(122, 162, 255, .6);
+        background: rgba(122, 162, 255, .08);
+        transform: translateY(-1px);
+      }
+    }
+
+    a.btn:focus-visible {
+      outline: 2px solid rgba(122, 162, 255, .65);
+      outline-offset: 2px;
+    }
+
+    .left { display: flex; gap: 10px; align-items: center; }
+
+    .icon {
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      background: rgba(0, 0, 0, .18);
+      flex: 0 0 auto;
+    }
+
+    .title { font-size: 14px; font-weight: 700; }
+    .sub { font-size: 12px; color: var(--muted); }
+    .arrow { color: var(--muted); font-size: 18px; }
+
+    .foot {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    button.copy {
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, .12);
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    @media (hover:hover) {
+      button.copy:hover { border-color: rgba(122, 162, 255, .6); color: var(--text); }
+    }
+
+    button.copy:focus-visible {
+      outline: 2px solid rgba(122, 162, 255, .65);
+      outline-offset: 2px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(16, 26, 47, .95);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transition: .2s;
+      pointer-events: none;
+    }
+
+    .toast.show { opacity: 1; }
+
+    .site-foot {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(183, 196, 227, .85);
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <div class="top">
+        <div class="avatar">
+          <img src="https://avatars.githubusercontent.com/u/45937750?v=4" alt="Sangyeon Byeon profile photo"
+            loading="lazy" />
+        </div>
+
+        <div class="header">
+          <div>
+            <h1 id="name">Sangyeon Byeon</h1>
+            <div class="role" id="role">Dev · IDEAWO⅃ꟻ</div>
+          </div>
+
+          <div class="lang-pill" role="group" aria-label="Language switch">
+            <button type="button" id="btnKo">KO</button>
+            <button type="button" id="btnEn">EN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips">
+        <div class="chip" id="chip1">Product Builder</div>
+        <div class="chip" id="chip2">Software Engineer</div>
+        <div class="chip" id="chip3">Freelancer</div>
+      </div>
+
+      <div class="links">
+        <!-- ✅ Email/Phone: 프라이버시 때문에 숨김 (href도 개인정보 제거) -->
+        <a class="btn" id="btnEmail" href="#" aria-label="Email hidden">
+          <div class="left">
+            <div class="icon" aria-hidden="true">✉️</div>
+            <div>
+              <div class="title" id="ttlEmail">Email</div>
+              <div class="sub" id="txtEmail">Hidden</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+
+        <a class="btn" id="btnPhone" href="#" aria-label="Phone hidden">
+          <div class="left">
+            <div class="icon" aria-hidden="true">📞</div>
+            <div>
+              <div class="title" id="ttlPhone">Phone</div>
+              <div class="sub" id="txtPhone">Hidden</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+
+        <a class="btn" id="btnGitHub" href="https://github.com/ideawolf" target="_blank" rel="noopener noreferrer"
+          aria-label="Open GitHub (new tab)">
+          <div class="left">
+            <div class="icon" aria-hidden="true">🐙</div>
+            <div>
+              <div class="title" id="ttlGitHub">GitHub</div>
+              <div class="sub" id="txtGitHub">github.com/ideawolf</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+
+        <!-- LinkedIn (없으면 JS가 숨김) -->
+        <a class="btn" id="btnLinkedIn" href="https://www.linkedin.com/in/YOUR_LINKEDIN_ID" target="_blank"
+          rel="noopener noreferrer" aria-label="Open LinkedIn (new tab)">
+          <div class="left">
+            <div class="icon" aria-hidden="true">💼</div>
+            <div>
+              <div class="title" id="ttlLinkedIn">LinkedIn</div>
+              <div class="sub" id="txtLinkedIn">linkedin.com/in/YOUR_LINKEDIN_ID</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+
+        <a class="btn" id="btnInstagram" href="https://instagram.com/s44ng" target="_blank" rel="noopener noreferrer"
+          aria-label="Open Instagram (new tab)">
+          <div class="left">
+            <div class="icon" aria-hidden="true">📷</div>
+            <div>
+              <div class="title" id="ttlInstagram">Instagram</div>
+              <div class="sub" id="txtInstagram">@s44ng</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+
+        <!-- KakaoTalk (없으면 JS가 숨김) -->
+        <a class="btn" id="btnKakao" href="https://open.kakao.com/o/YOUR_CODE" target="_blank"
+          rel="noopener noreferrer" aria-label="Open KakaoTalk Open Chat (new tab)">
+          <div class="left">
+            <div class="icon" aria-hidden="true">💬</div>
+            <div>
+              <div class="title" id="ttlKakao">KakaoTalk</div>
+              <div class="sub" id="txtKakao">Open Chat</div>
+            </div>
+          </div>
+          <div class="arrow" aria-hidden="true">›</div>
+        </a>
+      </div>
+
+      <div class="foot">
+        <div style="display:flex; gap:8px;">
+          <button class="copy" id="downloadVcard" type="button">Save vCard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-foot" aria-label="Copyright">
+    © <span id="y"></span> <span id="footOrg">IDEAWO⅃ꟻ</span>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Saved</div>
+
+  <script>
+    // ====== Constants (언어별 프로필) ======
+    // ✅ EMAIL/TEL 완전 제거
+    const PROFILE = {
+      ko: {
+        FULL_NAME: "변상연",
+        ORG: "아이디어울프",
+        TITLE: "개발자",
+        ROLE_LINE: "개발자 · IDEAWO⅃ꟻ",
+
+        CARD_URL: "https://ideawolf.github.io/card",
+        GITHUB_URL: "https://github.com/ideawolf",
+        INSTAGRAM_URL: "https://instagram.com/s44ng",
+
+        LINKEDIN_URL: "https://www.linkedin.com/in/YOUR_LINKEDIN_ID",
+        KAKAO_URL: "https://open.kakao.com/o/YOUR_CODE",
+      },
+      en: {
+        FULL_NAME: "Sangyeon Byeon",
+        ORG: "IDEAWOLF",
+        TITLE: "Developer",
+        ROLE_LINE: "Dev · IDEAWO⅃ꟻ",
+
+        CARD_URL: "https://ideawolf.github.io/card",
+        GITHUB_URL: "https://github.com/ideawolf",
+        INSTAGRAM_URL: "https://instagram.com/s44ng",
+
+        LINKEDIN_URL: "https://www.linkedin.com/in/YOUR_LINKEDIN_ID",
+        KAKAO_URL: "https://open.kakao.com/o/YOUR_CODE",
+      }
+    };
+
+    // ====== i18n (KO는 100% 한글) ======
+    const i18n = {
+      ko: {
+        htmlLang: "ko",
+        avatarAlt: "변상연 프로필 사진",
+        chips: ["운영자", "개발자", "프리랜서"],
+
+        emailTitle: "이메일",
+        phoneTitle: "전화번호",
+        githubTitle: "깃허브",
+        instaTitle: "인스타그램",
+        linkedinTitle: "링크드인",
+        kakaoTitle: "카카오톡",
+
+        vcardBtn: "연락처 저장(vCard)",
+        toastSaved: "vCard 저장됨 ✅",
+      },
+      en: {
+        htmlLang: "en",
+        avatarAlt: "Sangyeon Byeon profile photo",
+        chips: ["Owner", "Software Engineer", "Freelancer"],
+
+        emailTitle: "Email",
+        phoneTitle: "Phone",
+        githubTitle: "GitHub",
+        instaTitle: "Instagram",
+        linkedinTitle: "LinkedIn",
+        kakaoTitle: "KakaoTalk",
+
+        vcardBtn: "Save vCard",
+        toastSaved: "vCard saved ✅",
+      }
+    };
+
+    // ====== Helpers ======
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const toast = (msg) => {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      window.clearTimeout(toast._timer);
+      toast._timer = window.setTimeout(() => t.classList.remove("show"), 1200);
+    };
+
+    const isValidUrl = (u) => {
+      if (!u) return false;
+      if (u.includes("YOUR_LINKEDIN_ID") || u.includes("YOUR_CODE")) return false;
+      try { new URL(u); return true; } catch { return false; }
+    };
+
+    const toggleLink = (btnId, url, textId, text) => {
+      const el = document.getElementById(btnId);
+      if (!el) return;
+      if (!isValidUrl(url)) {
+        el.style.display = "none";
+        return;
+      }
+      el.style.display = "";
+      el.href = url;
+      if (textId) {
+        const t = document.getElementById(textId);
+        if (t) t.textContent = text || url.replace(/^https?:\/\//, "");
+      }
+    };
+
+    // ====== Language ======
+    let lang = localStorage.getItem("lang") || "en"; // 기본 EN
+
+    const applyLang = (l) => {
+      const t = i18n[l];
+      const p = PROFILE[l];
+
+      document.documentElement.lang = t.htmlLang;
+
+      const nameEl = document.getElementById("name");
+      if (nameEl) nameEl.textContent = p.FULL_NAME;
+
+      const roleEl = document.getElementById("role");
+      if (roleEl) roleEl.textContent = p.ROLE_LINE;
+
+      const footOrg = document.getElementById("footOrg");
+      if (footOrg) footOrg.textContent = "IDEAWO⅃ꟻ";
+
+      const avatarImg = document.querySelector(".avatar img");
+      if (avatarImg) avatarImg.alt = t.avatarAlt;
+
+      // chips
+      const chips = [document.getElementById("chip1"), document.getElementById("chip2"), document.getElementById("chip3")];
+      chips.forEach((el, idx) => {
+        if (!el) return;
+        const label = t.chips[idx];
+        if (label) {
+          el.style.display = "";
+          el.textContent = label;
+        } else {
+          el.style.display = "none";
+        }
+      });
+
+      // ✅ Email/Phone 버튼 완전 숨김
+      const emailA = document.getElementById("btnEmail");
+      const phoneA = document.getElementById("btnPhone");
+      if (emailA) emailA.style.display = "none";
+      if (phoneA) phoneA.style.display = "none";
+
+      // GitHub
+      const githubA = document.getElementById("btnGitHub");
+      if (githubA) {
+        githubA.href = p.GITHUB_URL;
+        document.getElementById("ttlGitHub").textContent = t.githubTitle;
+        document.getElementById("txtGitHub").textContent = p.GITHUB_URL.replace(/^https?:\/\//, "");
+      }
+
+      // Instagram
+      const instaA = document.getElementById("btnInstagram");
+      if (instaA) {
+        instaA.href = p.INSTAGRAM_URL;
+        document.getElementById("ttlInstagram").textContent = t.instaTitle;
+        document.getElementById("txtInstagram").textContent = "@s44ng";
+      }
+
+      // Optional: LinkedIn / Kakao
+      toggleLink("btnLinkedIn", p.LINKEDIN_URL, "txtLinkedIn", p.LINKEDIN_URL.replace(/^https?:\/\//, ""));
+      const linkedInA = document.getElementById("btnLinkedIn");
+      if (linkedInA && linkedInA.style.display !== "none") {
+        document.getElementById("ttlLinkedIn").textContent = t.linkedinTitle;
+      }
+
+      toggleLink("btnKakao", p.KAKAO_URL, "txtKakao", (l === "ko") ? "오픈채팅" : "Open Chat");
+      const kakaoA = document.getElementById("btnKakao");
+      if (kakaoA && kakaoA.style.display !== "none") {
+        document.getElementById("ttlKakao").textContent = t.kakaoTitle;
+      }
+
+      // vCard button label
+      const vcardBtn = document.getElementById("downloadVcard");
+      if (vcardBtn) vcardBtn.textContent = t.vcardBtn;
+    };
+
+    const setLang = (next) => {
+      lang = next;
+      localStorage.setItem("lang", lang);
+      applyLang(lang);
+
+      const ko = document.getElementById("btnKo");
+      const en = document.getElementById("btnEn");
+      if (ko && en) {
+        ko.classList.toggle("active", lang === "ko");
+        en.classList.toggle("active", lang === "en");
+      }
+    };
+
+    setLang(lang);
+
+    const btnKo = document.getElementById("btnKo");
+    const btnEn = document.getElementById("btnEn");
+    if (btnKo) btnKo.addEventListener("click", () => setLang("ko"));
+    if (btnEn) btnEn.addEventListener("click", () => setLang("en"));
+
+    // ====== vCard Download ======
+    const downloadBtn = document.getElementById("downloadVcard");
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", () => {
+        const p = PROFILE[lang];
+        const vcf = makeVCard(p);
+
+        const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+        const a = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        a.href = url;
+        a.download = "Sangyeon_Byeon.vcf";
+
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        toast(i18n[lang].toastSaved);
+      });
+    }
+
+    const splitName = (fullName) => {
+      const parts = String(fullName).trim().split(/\s+/);
+      if (parts.length === 1) return { last: parts[0], first: "" };
+      return { last: parts[parts.length - 1], first: parts.slice(0, -1).join(" ") };
+    };
+
+    const makeVCard = (p) => {
+      const { first, last } = splitName(p.FULL_NAME);
+
+      const lines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `N:${last};${first};;;`,
+        `FN:${p.FULL_NAME}`,
+        `ORG:${p.ORG}`,
+        `TITLE:${p.TITLE}`,
+        `URL:${p.CARD_URL}`,
+      ];
+
+      if (isValidUrl(p.GITHUB_URL)) lines.push(`X-SOCIALPROFILE;TYPE=github:${p.GITHUB_URL}`);
+      if (isValidUrl(p.INSTAGRAM_URL)) lines.push(`X-SOCIALPROFILE;TYPE=instagram:${p.INSTAGRAM_URL}`);
+      if (isValidUrl(p.LINKEDIN_URL)) lines.push(`X-SOCIALPROFILE;TYPE=linkedin:${p.LINKEDIN_URL}`);
+      if (isValidUrl(p.KAKAO_URL)) lines.push(`URL:${p.KAKAO_URL}`);
+
+      lines.push("END:VCARD");
+      return lines.join("\r\n");
+    };
+  </script>
+</body>
+
+</html>
